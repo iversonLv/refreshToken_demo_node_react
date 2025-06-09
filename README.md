@@ -5,14 +5,16 @@
 - Then we have another token named refreshToken, that is responsible for exchanging/renew a new accessToken for us to get the protected resource again.  
 - Normally, refreshToken has a long-live while accessToken has a relatively short-live  
 
-## Requirements:  
+## Requirements
+
    We want to refreshToken to get new accessToken and automatically request again with the new accessToken at background rather than any manully action.
 
-## Thoughts:
-   - Using Axios interceptors to intercepte when first request response 401(Unauthorized)
-   - If so call the refreshToken API
-   - Re-request the existing resonse-401 endpoint again with the new accessToken
-   - If accessToken is expried neither, direct user to login page
+## Thoughts
+
+- Using Axios interceptors to intercepte when first request response 401(Unauthorized)
+- If so call the refreshToken API
+- Re-request the existing resonse-401 endpoint again with the new accessToken
+- If accessToken is expried neither, direct user to login page
 
 ## Client side
 
@@ -32,4 +34,4 @@
 [x] setup get user endpoint  
 [x] setup refresh token endpoint  
 [x] create generate token function  
-[x] create middle for checking token  
+[x] create middle for checking token
