@@ -1,12 +1,13 @@
 import express from 'express';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
+import 'dotenv/config'
 
 // JWT 1
 var SECRITE = '123';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT
 app.use(cors());
 app.use(express.json());
 
