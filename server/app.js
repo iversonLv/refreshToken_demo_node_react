@@ -4,11 +4,12 @@ import jwt from 'jsonwebtoken';
 import 'dotenv/config'
 
 // JWT 1
-var SECRITE = '123';
+var JWT_SECRITE = process.env.JWT_SECRITE;
 
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(express.json());
+app.use(cors());
 
 /***
  * @description Generates a JWT token.
@@ -19,13 +20,13 @@ app.use(express.json());
  * @returns {string} The generated JWT token as a string.
  * @example
  * ```js
- * const accessToken = generateToken('xxx', SECRITE, '3000');
+ * const accessToken = generateToken('xxx', JWT_SECRITE, '3000');
  * ```
  */
-const generateToken = (data, secrite, expiresIn) => {
+const generateToken = (data, JWT_SECRITE, expiresIn) => {
   return jwt.sign({
     data
-  }, secrite, { expiresIn });
+  }, JWT_SECRITE, { expiresIn });
 }
 
 /**
@@ -37,7 +38,7 @@ const generateToken = (data, secrite, expiresIn) => {
  */
 const authMiddleware = (req, res, next) => {
   const accessToken = req.headers.authorization.split(' ')[ 1 ];
-  jwt.verify(accessToken, SECRITE, (error, data) => {
+  jwt.verify(accessToken, JWT_SECRITE, (error, data) => {
     if (error) {
       return res.status(401).json({
         code: 401, message: 'Unauthorized access, please login first',
@@ -50,8 +51,8 @@ const authMiddleware = (req, res, next) => {
 // endpoints
 app.post('/auth/login', (req, res) => {
 
-  const accessToken = generateToken('foo', SECRITE, '3000');
-  const refreshToken = generateToken('bar', SECRITE, '5000');
+  const accessToken = generateToken('foo', JWT_SECRITE, '3000');
+  const refreshToken = generateToken('bar', JWT_SECRITE, '5000');
 
   res.status(200).json({
     accessToken,
@@ -63,7 +64,7 @@ app.post('/auth/login', (req, res) => {
 app.post('/auth/refreshToken', (req, res) => {
   const refreshToken = req.headers.authorization.split(' ')[ 1 ]
   // check if refreshToken is provided
-  jwt.verify(refreshToken, SECRITE, (error, data) => {
+  jwt.verify(refreshToken, JWT_SECRITE, (error, data) => {
     if (error) {
       return res.status(401).json({
         code: 401, message: 'Unauthorized access, please login first refreshToken',
@@ -71,7 +72,7 @@ app.post('/auth/refreshToken', (req, res) => {
     }
 
     // ok
-    const accessToken = generateToken('foo', SECRITE, '3000');
+    const accessToken = generateToken('foo', JWT_SECRITE, '3000');
     return res.status(200).json({
       accessToken
     })
