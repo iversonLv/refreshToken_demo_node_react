@@ -1,25 +1,24 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
+# 通用忽略
+node_modules/
+dist/
+build/
 .env
+.env.* 
+*.log
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# React/Vite
+client/node_modules/
+client/dist/
+
+# Express/Node
+server/node_modules/
+server/dist/
+
+# OS 文件
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+
+# IDE 设置
+.vscode/
+.idea/
+*.swp
