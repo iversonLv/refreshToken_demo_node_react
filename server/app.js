@@ -7,8 +7,7 @@ import 'dotenv/config'
 var SECRITE = '123';
 
 const app = express();
-const port = process.env.PORT
-app.use(cors());
+const port = process.env.PORT || 3000;
 app.use(express.json());
 
 /***
